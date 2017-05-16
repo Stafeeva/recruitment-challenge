@@ -1,6 +1,6 @@
-### Junior dev test
+#### Junior dev test
 
-## USER STORIES
+### User stories
 
 ```
 As a user,
