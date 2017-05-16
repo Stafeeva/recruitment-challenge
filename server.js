@@ -1,5 +1,6 @@
-var express = require('express')
-var app = express()
+const express = require('express')
+const app = express()
+const fs = require('fs')
 
 app.get('/', function (req, res) {
   res.send('Hello World!')
