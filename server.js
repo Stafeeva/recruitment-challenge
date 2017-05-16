@@ -23,9 +23,11 @@ app.get('/clients/:clientName', (req, res) => {
     console.log('error:', error);
     console.log('statusCode:', response && response.statusCode);
     matrix = JSON.parse(body);
+    console.log("inside request!")
     console.log(matrix)
+    res.send(printMatrixAsHTML(clientName, matrix))
   });
-  res.send(printMatrixAsHTML(clientName, matrix))
+
 })
 
 app.listen(3000, () => {
@@ -43,14 +45,9 @@ createGoogleMapAPIUrl = (APIKey, clientName) => {
   for (var i in candidates.Candidates) {
     destinationPostcodes.push(candidates.Candidates[i].postcode.replace(" ", ""))
   }
-  console.log(destinationPostcodes)
-
-  console.log("originPostcode:")
-  console.log(originPostcode)
-  // return "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ originPostcode + "&destinations=" + destinationPostcodes + APIKey
+  console.log(destinationPostcodes.slice(0,3).join('|'))
+  return "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ originPostcode + "&destinations=" + destinationPostcodes.slice(0,3).join('|')+ "&key=" + APIKey
 }
-
-
 
 printListOfClientsAsHTML = () => {
   const allClients = clients.Clients
@@ -62,9 +59,13 @@ printListOfClientsAsHTML = () => {
 }
 
 printMatrixAsHTML = (clientName, matrix) => {
+  console.log("inside printMatrixAsHTML!")
+  console.log(matrix)
   var printHTML = "<h3>" + clientName + "</h3>" + "<p>" + matrix.destination_addresses + "</p>"
   const distances = matrix.rows[0].elements
+  console.log(distances)
   distances.forEach((distance) => {
+    console.log(distance.distance.text)
     printHTML = printHTML + distance.distance.text + ", time: " + distance.duration.text
   })
   return printHTML;
