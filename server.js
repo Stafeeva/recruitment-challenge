@@ -2,11 +2,8 @@ const express = require('express')
 const app = express()
 const fs = require('fs')
 
-
 const candidates = require('./data/candidates.json')
-// console.log(candidates.Candidates)
 const clients = require('./data/locations.json')
-
 
 app.get('/', (req, res) => {
   res.send('Homepage...')
@@ -22,8 +19,6 @@ app.get('/clients', (req, res) => {
 })
 
 app.get('/clients/:clientName', (req, res) => {
-  // console.log('List of candidates...')
-  // console.log(req.params)
   const clientName = req.params.clientName
   const allCandidates = candidates.Candidates
   const printHTML = []

@@ -23,3 +23,11 @@ So I can send the nearest candidate to a Client.
 ```
 User sees the lists of clients, clicks the link and sees all the candidates in order from the nearest one.
 ```
+
+### Usage
+
+- Clone repository
+- cd recruitment-challenge
+- Run npm install
+- Run node server.js
+- Go to localhost:3000
