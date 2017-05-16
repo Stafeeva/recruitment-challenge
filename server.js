@@ -16,10 +16,10 @@ app.get('/clients', (req, res) => {
   const allClients = clients.Clients
   const printHTML = []
   allClients.forEach( (name) => {
-    printHTML.push('<h3>' + name.name + '</h3>');
+    printHTML.push("<h3><a href='/clients/" + name.name + "'>" + name.name + "</a></h3>");
   })
-  console.log(printHTML.join(''))
   res.send(printHTML.join(''));
+  console.log(printHTML);
 })
 
 app.get('/clients/:clientName', (req, res) => {

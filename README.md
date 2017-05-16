@@ -1,4 +1,4 @@
-#### Junior dev test
+## Recruitment challenge
 
 ### User stories
 
@@ -21,5 +21,5 @@ So I can send the nearest candidate to a Client.
 
 ### MVP
 ```
-User sees the lists of clients, clicks the link and sees all the candidates in order from the nearest.
+User sees the lists of clients, clicks the link and sees all the candidates in order from the nearest one.
 ```
