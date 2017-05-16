@@ -2,8 +2,7 @@ const express = require('express')
 const app = express()
 const fs = require('fs')
 const APIKey = process.env.GOOGLE_MAPS_API_KEY
-console.log(APIKey)
-
+const request = require('request')
 
 const candidates = require('./data/candidates.json')
 const clients = require('./data/locations.json')
@@ -27,7 +26,7 @@ app.get('/clients/:clientName', (req, res) => {
   const printHTML = []
   allCandidates.forEach((candidate) => {
     console.log(candidate)
-    printHTML.push("<h4>" + candidate.name + ", postcode:" + candidate.postcode + "</h4>");
+    printHTML.push("<h4>" + candidate.name + ", postcode: " + candidate.postcode + "</h4>");
   })
   res.send('Client name: ' + clientName + printHTML.join(''))
 })
