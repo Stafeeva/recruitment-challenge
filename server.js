@@ -20,15 +20,24 @@ app.get('/clients', (req, res) => {
   res.send(printHTML.join(''));
 })
 
+const googleMapAPIUrl = 'http://google.com'
+var matrix = null
+
+request(googleMapAPIUrl, function (error, response, body) {
+  console.log('error:', error); // Print the error if one occurred
+  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+  matrix = body;
+});
+
 app.get('/clients/:clientName', (req, res) => {
   const clientName = req.params.clientName
   const allCandidates = candidates.Candidates
   const printHTML = []
-  allCandidates.forEach((candidate) => {
-    console.log(candidate)
-    printHTML.push("<h4>" + candidate.name + ", postcode: " + candidate.postcode + "</h4>");
-  })
-  res.send('Client name: ' + clientName + printHTML.join(''))
+  // allCandidates.forEach((candidate) => {
+  //   printHTML.push("<h4>" + candidate.name + ", postcode: " + candidate.postcode + "</h4>");
+  // })
+  // res.send('Client name: ' + clientName + printHTML.join(''))
+  res.send(matrix)
 })
 
 app.listen(3000, () => {
