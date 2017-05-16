@@ -17,8 +17,11 @@ app.get('/clients', function (req, res) {
   res.send('List of clients....')
 })
 
-app.get('/clients/{{clientName}}', function (req, res) {
-  res.send('List of candidates....')
+app.get('/clients/:clientName', function (req, res) {
+  console.log('List of candidates...')
+  console.log(req.params)
+  const clientName = req.params.clientName
+  res.send('a single client: ' + clientName)
 })
 
 app.listen(3000, function () {
