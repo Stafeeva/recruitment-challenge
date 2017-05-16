@@ -20,7 +20,7 @@ app.get('/clients', (req, res) => {
   res.send(printHTML.join(''));
 })
 
-const googleMapAPIUrl = 'http://google.com'
+const googleMapAPIUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=B47XG&destinations=B421QZ|B691EQ|B301DH&key=" + APIKey
 var matrix = null
 
 request(googleMapAPIUrl, function (error, response, body) {
