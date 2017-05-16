@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express()
 const fs = require('fs')
+const APIKey = process.env.GOOGLE_MAPS_API_KEY
+console.log(APIKey)
+
 
 const candidates = require('./data/candidates.json')
 const clients = require('./data/locations.json')
