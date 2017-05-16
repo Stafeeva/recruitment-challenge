@@ -18,3 +18,8 @@ As a user,
 I want to see the time and distance to travel to the Client based on various modes of travel,
 So I can send the nearest candidate to a Client.
 ```
+
+### MVP
+```
+User sees the lists of clients, clicks the link and sees all the candidates in order from the nearest.
+```
