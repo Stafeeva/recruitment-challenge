@@ -20,26 +20,30 @@ app.get('/clients', (req, res) => {
   res.send(printHTML.join(''));
 })
 
-const googleMapAPIUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=B47XG&destinations=B421QZ|B691EQ|B301DH&key=" + APIKey
+const googleMapAPIUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=B47XG&destinations=B421QZ|B691EQ&key=" + APIKey
 var matrix = null
 
 request(googleMapAPIUrl, function (error, response, body) {
-  console.log('error:', error); // Print the error if one occurred
-  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-  matrix = body;
+  console.log('error:', error);
+  console.log('statusCode:', response && response.statusCode);
+  matrix = JSON.parse(body);
+  console.log(matrix)
 });
 
 app.get('/clients/:clientName', (req, res) => {
   const clientName = req.params.clientName
-  const allCandidates = candidates.Candidates
-  const printHTML = []
-  // allCandidates.forEach((candidate) => {
-  //   printHTML.push("<h4>" + candidate.name + ", postcode: " + candidate.postcode + "</h4>");
-  // })
-  // res.send('Client name: ' + clientName + printHTML.join(''))
-  res.send(matrix)
+  res.send(printMatrixAsHTML(clientName, matrix))
 })
 
 app.listen(3000, () => {
   console.log('Go to  localhost:3000!')
 })
+
+printMatrixAsHTML = (clientName, matrix) => {
+  var printHTML = "<h3>" + clientName + "</h3>" + "<p>" + matrix.destination_addresses + "</p>"
+  const distances = matrix.rows[0].elements
+  distances.forEach = (distance) => {
+    printHTML = printHTML + distance.distance.text + ", time: " + distance.duration.text
+  }
+  return printHTML;
+}
