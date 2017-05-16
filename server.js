@@ -3,9 +3,12 @@ const app = express()
 const fs = require('fs')
 const APIKey = process.env.GOOGLE_MAPS_API_KEY
 const request = require('request')
+const handlebars = require('handlebars')
 
 const candidates = require('./data/candidates.json')
 const clients = require('./data/locations.json')
+
+const clientsView = handlebars.compile(fs.readFileSync('./views/clients.html', 'utf8'))
 
 var matrix = null
 
@@ -14,7 +17,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/clients', (req, res) => {
-  res.send(printListOfClientsAsHTML());
+  const data = {
+    title: "Clients",
+    clients: clients.Clients
+  }
+  res.send(clientsView(data));//printListOfClientsAsHTML());
 })
 
 app.get('/clients/:clientName', (req, res) => {
@@ -37,7 +44,7 @@ app.listen(3000, () => {
 createGoogleMapAPIUrl = (APIKey, clientName) => {
   var originPostcode = ''
   clients.Clients.forEach((client) => {
-    if (client.name = clientName) {
+    if (client.name == clientName) {
       originPostcode = client.postcode.replace(" ", "")
     }
   })
@@ -47,15 +54,6 @@ createGoogleMapAPIUrl = (APIKey, clientName) => {
   }
   console.log(destinationPostcodes.slice(0,3).join('|'))
   return "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ originPostcode + "&destinations=" + destinationPostcodes.slice(0,3).join('|')+ "&key=" + APIKey
-}
-
-printListOfClientsAsHTML = () => {
-  const allClients = clients.Clients
-  const printHTML = []
-  allClients.forEach((client) => {
-    printHTML.push("<h3><a href='/clients/" + client.name + "'>" + client.name + "</a></h3>");
-  })
-  return printHTML.join('')
 }
 
 printMatrixAsHTML = (clientName, matrix) => {
