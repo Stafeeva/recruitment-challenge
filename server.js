@@ -30,7 +30,7 @@ app.get('/clients', (req, res) => {
 
 app.get('/clients/:clientName', (req, res) => {
   const clientName = req.params.clientName
-  request(createGoogleMapAPIUrl(APIKey, clientName), (error, response, body) => {
+  request(createGoogleMapAPIUrl(APIKey, parsedClients[clientName]), (error, response, body) => {
     res.send(candidatesView({
       title: "Candidates",
       candidates: dataParser.parseGoogleMatrix(candidates, JSON.parse(body))
@@ -42,8 +42,6 @@ app.listen(3000, () => {
   console.log('Go to localhost:3000!')
 })
 
-const createGoogleMapAPIUrl = (APIKey, clientName) => {
-  var originPostcode = parsedClients[clientName]
-
+const createGoogleMapAPIUrl = (APIKey, originPostcode) => {
   return "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ originPostcode + "&destinations=" + destinationPostcodes + "&key=" + APIKey
 }
