@@ -48,4 +48,27 @@ User sees the lists of clients, clicks the link and sees all the candidates in o
 - Handlebars
 - Request
 - Google Distance Matrix service
-- Materialize
+- Materialize css
+
+### Approach
+
+I decided to solve the problem on the back end using Node, because I can keep the Google API Key hidden from the user, I can run tests on the server and avoid cross-browser differences.
+
+1. I started with a simple server and defined the routes '/clients' and '/clients/:clientName'.
+2. I built the '/clients' page and rendered the list from locations.json.
+3. I built a client page that displayed a simple list of all the candidates without distance or duration.
+4. I added a call to Google Maps to look up distance and travel time.
+5. I sorted the candidates by duration of travel.
+
+### Struggles
+
+- Parsing the response from Google API
+- Refactoring server.js
+
+### Things to improve
+
+- Add a map with pins
+- Add mode of transport
+- Handle error cases
+- Add more tests (browser tests, API call)
+- Database (so clients and candidates can be added or removed)
