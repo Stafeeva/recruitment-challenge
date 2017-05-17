@@ -30,7 +30,8 @@ app.get('/clients', (req, res) => {
 
 app.get('/clients/:clientName', (req, res) => {
   const clientName = req.params.clientName
-  request(createGoogleMapAPIUrl(APIKey, parsedClients[clientName]), (error, response, body) => {
+  const url = createGoogleMapAPIUrl(APIKey, parsedClients[clientName])
+  request(url, (error, response, body) => {
     res.send(candidatesView({
       title: "Candidates",
       candidates: dataParser.parseGoogleMatrix(candidates, JSON.parse(body))
