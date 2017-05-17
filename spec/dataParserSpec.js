@@ -77,10 +77,10 @@ describe("parseGoogleMatrix", () => {
   it("creates an object for every candidate", () => {
     const parsedGoogleMatrix = dataParser.parseGoogleMatrix(dummyCandidates, dummyMatrix)
     const perfectOutput = {
-      "name" : "Agnezka Seize-Soinxante-Quatre",
-      "address" : "Rocky Ln, Birmingham B42 1QZ, UK",
-      "duration" : "12 mins",
-      "distance" : "6.7 km"
+      name : 'Agnezka Seize-Soinxante-Quatre',
+      address : 'Rocky Ln, Birmingham B42 1QZ, UK',
+      duration : { text : '12 mins', value : 739 },
+      distance : { text : '6.7 km', value : 6655 }
     }
     expect(parsedGoogleMatrix[0]).toEqual(perfectOutput)
   })

@@ -31,4 +31,5 @@ User sees the lists of clients, clicks the link and sees all the candidates in o
 - cd recruitment-challenge
 - Run npm install
 - Run node server.js
+- Run npm test for testing
 - Visit localhost:3000

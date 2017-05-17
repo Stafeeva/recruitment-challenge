@@ -35,13 +35,13 @@ app.get('/clients/:clientName', (req, res) => {
     console.log('error:', error);
     console.log('statusCode:', response && response.statusCode);
     console.log(body)
-    matrix = dataParser.parseGoogleMatrix(candidates, JSON.parse(body));
+    parsedMatrix = dataParser.parseGoogleMatrix(candidates, JSON.parse(body));
     const data = {
       title: "Candidates",
-      candidates: candidates
+      candidates: parsedMatrix
     }
     console.log("matrix")
-    console.log(matrix)
+    console.log(parsedMatrix)
     res.send(candidatesView(data))
   });
 

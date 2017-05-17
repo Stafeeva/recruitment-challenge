@@ -28,11 +28,21 @@ module.exports.parseGoogleMatrix = (unparsedCandidates, matrix) => {
     var candidate = {
       name: unparsedCandidates[i].name,
       address : matrix.destination_addresses[i],
-      duration: matrix.rows[0].elements[i].duration.text,
-      distance: matrix.rows[0].elements[i].distance.text
+      duration: matrix.rows[0].elements[i].duration,
+      distance: matrix.rows[0].elements[i].distance
      }
     parsedGoogleMatrix.push(candidate)
   }
 
-  return parsedGoogleMatrix
+  var sortedCandidates = parsedGoogleMatrix.sort((a, b) => {
+    if (a.duration.value < b.duration.value) {
+      return -1
+    } else if (b.duration.value < a.duration.value) {
+      return 1
+    } else {
+      return 0
+    }
+  })
+
+  return sortedCandidates
 }
