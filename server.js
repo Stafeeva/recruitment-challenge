@@ -6,7 +6,7 @@ const request = require('request')
 const handlebars = require('handlebars')
 
 const candidates = require('./data/candidates.json')
-const clients = require('./data/locations.json')
+const clients = require('./data/locations.json').Clients
 const dataParser = require('./src/dataParser')
 
 const clientsView = handlebars.compile(fs.readFileSync('./views/clients.html', 'utf8'))
@@ -16,7 +16,7 @@ for (var i in candidates.Candidates) {
   destinationPostcodes.push(candidates.Candidates[i].postcode.replace(" ", ""))
 }
 
-const parsedClients = dataParser.parseClients(clients.Clients)
+const parsedClients = dataParser.parseClients(clients)
 
 
 app.use(express.static('public'))
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 app.get('/clients', (req, res) => {
   const data = {
     title: "Clients",
-    clients: clients.Clients
+    clients: clients
   }
   res.send(clientsView(data))
 })
