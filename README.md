@@ -23,6 +23,14 @@ So I can send the nearest candidate to a Client.
 ```
 User sees the lists of clients, clicks the link and sees all the candidates in order from the nearest one.
 ```
+### Screenshots
+
+/clients
+![alt text](screenshots/filename.png "Screencapture one")
+
+ /clients/:clientName
+![alt text](screenshots/filename.png "Screencapture two")
+
 
 ### Usage
 
@@ -33,3 +41,14 @@ User sees the lists of clients, clicks the link and sees all the candidates in o
 - Run node server.js
 - Run npm test for testing
 - Visit localhost:3000
+
+### Technologies
+
+- JavaSript
+- Node.js
+- Express
+- Jasmine
+- Handlebars
+- Request
+- Google Distance Matrix service
+- Materialize
