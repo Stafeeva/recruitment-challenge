@@ -10,6 +10,7 @@ const clients = require('./data/locations.json').Clients
 const dataParser = require('./src/dataParser')
 
 const clientsView = handlebars.compile(fs.readFileSync('./views/clients.html', 'utf8'))
+const candidatesView = handlebars.compile(fs.readFileSync('./views/candidates.html', 'utf8'))
 
 const parsedClients = dataParser.parseClients(clients)
 const destinationPostcodes = dataParser.getPostcodes(candidates)
@@ -33,8 +34,15 @@ app.get('/clients/:clientName', (req, res) => {
   request(createGoogleMapAPIUrl(APIKey, clientName), (error, response, body) => {
     console.log('error:', error);
     console.log('statusCode:', response && response.statusCode);
-    matrix = JSON.parse(body);
-    res.send(printMatrixAsHTML(clientName, matrix))
+    console.log(body)
+    matrix = dataParser.parseGoogleMatrix(candidates, JSON.parse(body));
+    const data = {
+      title: "Candidates",
+      candidates: candidates
+    }
+    console.log("matrix")
+    console.log(matrix)
+    res.send(candidatesView(data))
   });
 
 })
@@ -47,16 +55,4 @@ const createGoogleMapAPIUrl = (APIKey, clientName) => {
   var originPostcode = parsedClients[clientName]
 
   return "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ originPostcode + "&destinations=" + destinationPostcodes + "&key=" + APIKey
-}
-
-const printMatrixAsHTML = (clientName, matrix) => {
-  console.log(matrix)
-  var printHTML = "<h3>" + clientName + "</h3>" + "<p>" + matrix.destination_addresses + "</p>"
-  const distances = matrix.rows[0].elements
-  console.log(distances)
-  distances.forEach((distance) => {
-    console.log(distance.distance.text)
-    printHTML = printHTML + distance.distance.text + ", time: " + distance.duration.text
-  })
-  return printHTML;
 }
