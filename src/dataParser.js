@@ -25,8 +25,8 @@ module.exports.parseGoogleMatrix = (unparsedCandidates, matrix) => {
   var parsedGoogleMatrix = []
 
   for (var i in unparsedCandidates) {
-    var candidate = {}
-    candidate[unparsedCandidates[i].name] = {
+    var candidate = {
+      name: unparsedCandidates[i].name,
       address : matrix.destination_addresses[i],
       duration: matrix.rows[0].elements[i].duration.text,
       distance: matrix.rows[0].elements[i].distance.text
