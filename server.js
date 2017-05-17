@@ -18,33 +18,24 @@ const destinationPostcodes = dataParser.getPostcodes(candidates)
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-  res.send('Homepage...')
+  res.redirect('/clients')
 })
 
 app.get('/clients', (req, res) => {
-  const data = {
+  res.send(clientsView({
     title: "Clients",
     clients: clients
-  }
-  res.send(clientsView(data))
+  }))
 })
 
 app.get('/clients/:clientName', (req, res) => {
   const clientName = req.params.clientName
   request(createGoogleMapAPIUrl(APIKey, clientName), (error, response, body) => {
-    console.log('error:', error);
-    console.log('statusCode:', response && response.statusCode);
-    console.log(body)
-    parsedMatrix = dataParser.parseGoogleMatrix(candidates, JSON.parse(body));
-    const data = {
+    res.send(candidatesView({
       title: "Candidates",
-      candidates: parsedMatrix
-    }
-    console.log("matrix")
-    console.log(parsedMatrix)
-    res.send(candidatesView(data))
-  });
-
+      candidates: dataParser.parseGoogleMatrix(candidates, JSON.parse(body))
+    }))
+  })
 })
 
 app.listen(3000, () => {
