@@ -8,3 +8,14 @@ module.exports.parseClients = (unparsedClients) => {
 
   return clientsParsed
 }
+
+module.exports.getPostcodes = (unparsedCandidates) => {
+
+  var destinationPostcodes = []
+
+  for (var i in unparsedCandidates) {
+    destinationPostcodes.push(unparsedCandidates[i].postcode.replace(" ", ""))
+  }
+
+  return destinationPostcodes.join("|")
+}
