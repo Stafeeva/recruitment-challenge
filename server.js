@@ -5,19 +5,14 @@ const APIKey = process.env.GOOGLE_MAPS_API_KEY
 const request = require('request')
 const handlebars = require('handlebars')
 
-const candidates = require('./data/candidates.json').Candidates
+const candidates = require('./data/candidates.json').Candidates.slice(0,7)
 const clients = require('./data/locations.json').Clients
 const dataParser = require('./src/dataParser')
 
 const clientsView = handlebars.compile(fs.readFileSync('./views/clients.html', 'utf8'))
 
-var destinationPostcodes = []
-for (var i in candidates) {
-  destinationPostcodes.push(candidates[i].postcode.replace(" ", ""))
-}
-
 const parsedClients = dataParser.parseClients(clients)
-
+const destinationPostcodes = dataParser.getPostcodes(candidates)
 
 app.use(express.static('public'))
 
@@ -51,7 +46,7 @@ app.listen(3000, () => {
 const createGoogleMapAPIUrl = (APIKey, clientName) => {
   var originPostcode = parsedClients[clientName]
 
-  return "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ originPostcode + "&destinations=" + destinationPostcodes.slice(0,5).join('|')+ "&key=" + APIKey
+  return "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ originPostcode + "&destinations=" + destinationPostcodes + "&key=" + APIKey
 }
 
 const printMatrixAsHTML = (clientName, matrix) => {
