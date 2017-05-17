@@ -25,12 +25,9 @@ User sees the lists of clients, clicks the link and sees all the candidates in o
 ```
 ### Screenshots
 
-/clients
 ![alt text](screenshots/screencapture1.png "Screencapture one")
 
- /clients/:clientName
 ![alt text](screenshots/screencapture2.png "Screencapture two")
-
 
 ### Usage
 
