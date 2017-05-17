@@ -5,15 +5,15 @@ const APIKey = process.env.GOOGLE_MAPS_API_KEY
 const request = require('request')
 const handlebars = require('handlebars')
 
-const candidates = require('./data/candidates.json')
+const candidates = require('./data/candidates.json').Candidates
 const clients = require('./data/locations.json').Clients
 const dataParser = require('./src/dataParser')
 
 const clientsView = handlebars.compile(fs.readFileSync('./views/clients.html', 'utf8'))
 
 var destinationPostcodes = []
-for (var i in candidates.Candidates) {
-  destinationPostcodes.push(candidates.Candidates[i].postcode.replace(" ", ""))
+for (var i in candidates) {
+  destinationPostcodes.push(candidates[i].postcode.replace(" ", ""))
 }
 
 const parsedClients = dataParser.parseClients(clients)
