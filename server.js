@@ -10,7 +10,10 @@ const clients = require('./data/locations.json')
 
 const clientsView = handlebars.compile(fs.readFileSync('./views/clients.html', 'utf8'))
 
-var matrix = null
+var destinationPostcodes = []
+for (var i in candidates.Candidates) {
+  destinationPostcodes.push(candidates.Candidates[i].postcode.replace(" ", ""))
+}
 
 app.use(express.static('public'))
 
@@ -43,22 +46,18 @@ app.listen(3000, () => {
   console.log('Go to  localhost:3000!')
 })
 
-createGoogleMapAPIUrl = (APIKey, clientName) => {
+const createGoogleMapAPIUrl = (APIKey, clientName) => {
   var originPostcode = ''
   clients.Clients.forEach((client) => {
     if (client.name == clientName) {
       originPostcode = client.postcode.replace(" ", "")
     }
   })
-  var destinationPostcodes = []
-  for (var i in candidates.Candidates) {
-    destinationPostcodes.push(candidates.Candidates[i].postcode.replace(" ", ""))
-  }
-  console.log(destinationPostcodes.slice(0,3).join('|'))
-  return "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ originPostcode + "&destinations=" + destinationPostcodes.slice(0,3).join('|')+ "&key=" + APIKey
+
+  return "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ originPostcode + "&destinations=" + destinationPostcodes.slice(0,5).join('|')+ "&key=" + APIKey
 }
 
-printMatrixAsHTML = (clientName, matrix) => {
+const printMatrixAsHTML = (clientName, matrix) => {
   console.log("inside printMatrixAsHTML!")
   console.log(matrix)
   var printHTML = "<h3>" + clientName + "</h3>" + "<p>" + matrix.destination_addresses + "</p>"
