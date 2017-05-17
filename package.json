@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/jasmine-node spec"
   },
   "author": "Natalia Stafeeva",
   "license": "ISC",
@@ -12,6 +12,7 @@
     "express": "^4.15.2",
     "file-system": "^2.2.2",
     "handlebars": "^4.0.8",
+    "jasmine-node": "^1.14.5",
     "request": "^2.81.0"
   }
 }
