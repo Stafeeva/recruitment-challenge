@@ -15,11 +15,26 @@
         </div>
       </nav>
     </div>
-    <ul class="collection">
-      {{#each candidates}}
-        <li class="collection-item">{{this.name}}, duration: {{this.duration.text}}, distance: {{this.distance.text}} </li>
-      {{/each}}
-    </ul>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Duration</th>
+          <th>Distance</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each candidates}}
+        <tr>
+          <td>{{this.name}}</td>
+          <td>{{this.duration.text}}</td>
+          <td>{{this.distance.text}}</td>
+          <td>{{this.address}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
