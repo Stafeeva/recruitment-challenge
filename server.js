@@ -12,6 +12,8 @@ const clientsView = handlebars.compile(fs.readFileSync('./views/clients.html', '
 
 var matrix = null
 
+app.use(express.static('public'))
+
 app.get('/', (req, res) => {
   res.send('Homepage...')
 })
@@ -21,7 +23,7 @@ app.get('/clients', (req, res) => {
     title: "Clients",
     clients: clients.Clients
   }
-  res.send(clientsView(data));//printListOfClientsAsHTML());
+  res.send(clientsView(data))
 })
 
 app.get('/clients/:clientName', (req, res) => {
