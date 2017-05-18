@@ -31,7 +31,7 @@ User sees the lists of clients, clicks the link and sees all the candidates in o
 
 ### Usage
 
-- You will need your google maps API key
+- You will need your Google Maps API key
 - Clone repository
 - cd recruitment-challenge
 - Run npm install
